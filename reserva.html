@@ -503,31 +503,6 @@
     emailjs.init(EMAILJS_PUBLIC_KEY);
   }
 
-  // ---------- WhatsApp automático al barbero (Meta Cloud API vía Cloudflare Worker) ----------
-  // Pega aquí la URL de tu Worker desplegado (ver carpeta /worker). Ejemplo:
-  // "https://fraynid-whatsapp.tu-usuario.workers.dev"
-  // Mientras quede vacío, no se envía nada automático y solo funciona el botón
-  // manual "Abrir WhatsApp" de la pantalla de confirmación.
-  var WHATSAPP_WORKER_URL = "";
-
-  function notificarWhatsappBarbero(nombreVal, fechaTxt, horaTxt, barbero, telefonoVal){
-    if(!WHATSAPP_WORKER_URL) return;
-    var telefonoDestino = BARBEROS[barbero];
-    if(!telefonoDestino) return;
-    fetch(WHATSAPP_WORKER_URL, {
-      method:"POST",
-      headers:{ "Content-Type":"application/json" },
-      body: JSON.stringify({
-        telefonoDestino: telefonoDestino,
-        nombre: nombreVal,
-        servicio: estado.servicio,
-        fecha: fechaTxt,
-        hora: horaTxt,
-        telefonoCliente: telefonoVal
-      })
-    }).catch(function(){ /* si falla, el cliente igual puede usar el botón manual de WhatsApp */ });
-  }
-
   function notificarCorreoBarbero(nombreVal, fechaTxt, horaTxt, barbero, telefonoVal){
     if(!window.emailjs || EMAILJS_TEMPLATE_ID.indexOf("TU_")===0) return;
     var destino = CORREOS_BARBEROS[barbero];
@@ -830,9 +805,6 @@
 
     // Correo automático al barbero elegido, sin importar el servicio
     notificarCorreoBarbero(nombreVal, fechaLargaCita, horaTxt, barbero, telefonoVal);
-
-    // WhatsApp automático al barbero elegido (requiere configurar WHATSAPP_WORKER_URL arriba)
-    notificarWhatsappBarbero(nombreVal, fechaLargaCita, horaTxt, barbero, telefonoVal);
 
     // Archivo de calendario (.ics)
     var ini = new Date(fechaCita);
