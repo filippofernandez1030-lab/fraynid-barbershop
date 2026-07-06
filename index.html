@@ -107,6 +107,21 @@
   .card-desc{font-size:13px;color:rgba(255,255,255,.58);}
   .card-precio{font-family:'Oswald',sans-serif;font-weight:600;color:var(--dorado);font-size:15px;}
 
+  .grid-estilos{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:16px;perspective:1000px;}
+  .card-estilo{
+    position:relative;border-radius:18px;overflow:hidden;aspect-ratio:3/4;
+    border:1px solid rgba(255,255,255,.08);box-shadow:0 10px 24px rgba(0,0,0,.35);
+    opacity:0;transform:translateY(26px);transition:opacity .6s ease, transform .6s ease, box-shadow .3s ease;
+    transform-style:preserve-3d;will-change:transform;
+  }
+  .card-estilo.visible{opacity:1;transform:none;}
+  .card-estilo:hover{box-shadow:0 20px 40px rgba(0,0,0,.5);}
+  .card-estilo img{width:100%;height:100%;object-fit:cover;display:block;}
+  .card-estilo::after{
+    content:"";position:absolute;inset:0;pointer-events:none;
+    background:linear-gradient(to top, rgba(0,0,0,.5), transparent 50%);
+  }
+
   .grid-barberos{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;}
   .card-barbero{
     background:var(--gris-oscuro);border:1px solid rgba(255,255,255,.08);border-radius:18px;
@@ -165,7 +180,7 @@
       <span class="card-icono" aria-hidden="true">🪒</span>
       <h3>Barba</h3>
       <p class="card-desc">Perfilado profesional</p>
-      <span class="card-precio">RD$400</span>
+      <span class="card-precio">RD$300</span>
     </article>
     <article class="card-servicio reveal">
       <span class="card-icono" aria-hidden="true">💈</span>
@@ -179,6 +194,31 @@
       <p class="card-desc">Navaja tradicional</p>
       <span class="card-precio">RD$350</span>
     </article>
+  </div>
+</section>
+
+<section class="seccion" id="estilos">
+  <h2 class="seccion-titulo">Estilos de corte</h2>
+  <div class="franja-mini" aria-hidden="true"></div>
+  <div class="grid-estilos">
+    <figure class="card-estilo reveal">
+      <img src="imagen/estilos/1.jpeg" alt="Fade bajo con línea marcada y barba perfilada" loading="lazy">
+    </figure>
+    <figure class="card-estilo reveal">
+      <img src="imagen/estilos/2.jpeg" alt="Fade con textura ondulada (waves) y bigote definido" loading="lazy">
+    </figure>
+    <figure class="card-estilo reveal">
+      <img src="imagen/estilos/3.jpeg" alt="Fade con línea de contorno nítida y barba candado" loading="lazy">
+    </figure>
+    <figure class="card-estilo reveal">
+      <img src="imagen/estilos/4.jpeg" alt="Fade bajo con línea marcada y bigote" loading="lazy">
+    </figure>
+    <figure class="card-estilo reveal">
+      <img src="imagen/estilos/5.jpeg" alt="Fade con diseño tallado (line up) a mano alzada" loading="lazy">
+    </figure>
+    <figure class="card-estilo reveal">
+      <img src="imagen/estilos/6.jpeg" alt="Fade bajo con diseño curvo tallado en el contorno" loading="lazy">
+    </figure>
   </div>
 </section>
 
@@ -237,17 +277,18 @@
     document.getElementById("servicios").scrollIntoView({behavior:"smooth", block:"start"});
   });
 
-  // ---------- Inclinación 3D magnética de los botones ----------
-  document.querySelectorAll(".btn-cta").forEach(function(boton){
+  // ---------- Inclinación 3D magnética de los botones y las fotos de estilos ----------
+  document.querySelectorAll(".btn-cta, .card-estilo").forEach(function(el){
     if(reducirMovimiento) return;
-    boton.addEventListener("mousemove", function(e){
-      var r = boton.getBoundingClientRect();
+    var inclinacion = el.classList.contains("card-estilo") ? 11 : 16;
+    el.addEventListener("mousemove", function(e){
+      var r = el.getBoundingClientRect();
       var x = (e.clientX - r.left) / r.width - .5;
       var y = (e.clientY - r.top) / r.height - .5;
-      boton.style.transform = "rotateX("+(-y*16)+"deg) rotateY("+(x*16)+"deg) scale(1.03)";
+      el.style.transform = "rotateX("+(-y*inclinacion)+"deg) rotateY("+(x*inclinacion)+"deg) scale(1.03)";
     });
-    boton.addEventListener("mouseleave", function(){
-      boton.style.transform = "";
+    el.addEventListener("mouseleave", function(){
+      el.style.transform = "";
     });
   });
 
