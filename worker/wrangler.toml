@@ -1,0 +1,9 @@
+name = "fraynid-whatsapp-notificador"
+main = "src/index.js"
+compatibility_date = "2026-01-01"
+
+[vars]
+# El "Phone number ID" que te da Meta al crear el número de prueba de WhatsApp
+# (Meta for Developers > tu app > WhatsApp > Configuración de la API).
+# No es secreto, por eso va aquí y no como "secret".
+WHATSAPP_PHONE_NUMBER_ID = "PON_AQUI_TU_PHONE_NUMBER_ID"
