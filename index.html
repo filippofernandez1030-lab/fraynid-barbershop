@@ -102,18 +102,19 @@
     opacity:0;transform:translateY(26px);transition:opacity .6s ease, transform .6s ease;
   }
   .card-servicio.visible{opacity:1;transform:none;}
-  .card-icono{font-size:26px;}
   .card-servicio h3{font-family:'Oswald',sans-serif;font-size:17px;font-weight:600;text-transform:uppercase;}
   .card-desc{font-size:13px;color:rgba(255,255,255,.58);}
   .card-precio{font-family:'Oswald',sans-serif;font-weight:600;color:var(--dorado);font-size:15px;}
 
-  .grid-estilos{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:16px;perspective:1000px;}
+  .grid-estilos{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:16px;perspective:900px;}
   .card-estilo{
     position:relative;border-radius:18px;overflow:hidden;aspect-ratio:3/4;
     border:1px solid rgba(255,255,255,.08);box-shadow:0 10px 24px rgba(0,0,0,.35);
-    opacity:0;transform:translateY(26px);transition:opacity .6s ease, transform .6s ease, box-shadow .3s ease;
+    opacity:0;transform:translateY(30px) rotateY(-26deg) rotateX(8deg);
+    transition:opacity .7s ease, transform .8s cubic-bezier(.2,.8,.2,1), box-shadow .3s ease;
     transform-style:preserve-3d;will-change:transform;
   }
+  .card-estilo:nth-child(even){transform:translateY(30px) rotateY(26deg) rotateX(8deg);}
   .card-estilo.visible{opacity:1;transform:none;}
   .card-estilo:hover{box-shadow:0 20px 40px rgba(0,0,0,.5);}
   .card-estilo img{width:100%;height:100%;object-fit:cover;display:block;}
@@ -171,25 +172,21 @@
   <div class="franja-mini" aria-hidden="true"></div>
   <div class="grid-servicios">
     <article class="card-servicio reveal">
-      <span class="card-icono" aria-hidden="true">✂️</span>
       <h3>Corte</h3>
       <p class="card-desc">Clásico o moderno</p>
       <span class="card-precio">RD$400</span>
     </article>
     <article class="card-servicio reveal">
-      <span class="card-icono" aria-hidden="true">🪒</span>
       <h3>Barba</h3>
       <p class="card-desc">Perfilado profesional</p>
       <span class="card-precio">RD$300</span>
     </article>
     <article class="card-servicio reveal">
-      <span class="card-icono" aria-hidden="true">💈</span>
       <h3>Corte + Barba</h3>
       <p class="card-desc">El combo completo</p>
       <span class="card-precio">RD$450</span>
     </article>
     <article class="card-servicio reveal">
-      <span class="card-icono" aria-hidden="true">🧴</span>
       <h3>Afeitado</h3>
       <p class="card-desc">Navaja tradicional</p>
       <span class="card-precio">RD$350</span>
